@@ -47,9 +47,11 @@ def extract_qp():
                 except ValueError as e:
                     print(f"Error parsing JSON at index {idx}: {e}")
                     print(f"Problematic sample: {result}")
+                    sample['question_parsing'] = []
                 except Exception as e:
                     print(f"Unexpected error at index {idx}: {e}")
                     print(f"Problematic sample: {result}")
+                    sample['question_parsing'] = []
     except FileNotFoundError:
         print("Error: The file './output.json' was not found.")
     except json.JSONDecodeError as e:
@@ -73,9 +75,11 @@ def extract_cp():
                 except ValueError as e:
                     print(f"Error parsing JSON at index {idx}: {e}")
                     print(f"Problematic sample: {result}")
+                    sample['cot_parsing'] = []
                 except Exception as e:
                     print(f"Unexpected error at index {idx}: {e}")
                     print(f"Problematic sample: {result}")
+                    sample['cot_parsing'] = []
     except FileNotFoundError:
         print("Error: The file './output.json' was not found.")
     except json.JSONDecodeError as e:
