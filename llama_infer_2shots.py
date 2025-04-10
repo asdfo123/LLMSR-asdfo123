@@ -97,8 +97,8 @@ Given the following question, please list all original fragments in the question
 Output the list of parsing results, do not output other information.<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
 
 
-# 思维链解析的2-shot学习模板 (CP_ICL_TEMPLATE)
 
+# 3-shot
 CP_ICL_TEMPLATE = '''<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
 You are a helpful analytical assistant that parses responses to logical problems, extracts statements, evidence, and verifies their correctness.<|eot_id|><|start_header_id|>user<|end_header_id|>
@@ -256,6 +256,74 @@ Make sure all "statement" and "evidence" fields are concise and in a single line
 ```
 <|eot_id|><|start_header_id|>user<|end_header_id|>
 
+Given a question, the conditions provided by the question, and response that aims at solving the problem of the question, please parse the response: extract the statements from the original fragment of the response, and extract the evidence that each statement based on also from original fragments of the response, finally verify each statement is true (correct) or false (incorrect) according to the conditions provided by question.
+
+The question is:
+
+A company has a 6-story office building.The company's finance department, planning department, administration department, sales department, human resources department, and research and development department work here, and each department occupies one of the floors.Known? (1) The two floors of the human resources department and the sales department are not adjacent; (2) The finance department is on the next floor of the planning department; (3) The floor of the administrative department is above the planning department, but in the manpower Below the Resources Department.
+If the human resources department is not on the top floor, the floors that the R & D department may be on are?
+A.3, 4, 6
+B.3, 4, 5
+C.4, 5
+D.5, 6
+
+The conditions provided by the question is:
+
+[
+    "A company has a 6-story office building.",
+    "The company's finance department, planning department, administration department, sales department, human resources department, and research and development department work here, and each department occupies one of the floors.",
+    "The two floors of the human resources department and the sales department are not adjacent.",
+    "The finance department is on the next floor of the planning department.",
+    "The floor of the administrative department is above the planning department, but in the manpower Below the Resources Department.",
+    "The human resources department is not on the top floor."
+]
+
+The response to the question is:
+
+Let's analyze the given information. We know that the human resources department and the sales department are not adjacent, so they cannot be on the same floor. We also know that the finance department is on the floor above the planning department, and the administrative department is above the planning department but below the human resources department. This means that the planning department is on a floor that is below the administrative department and the human resources department. Since the human resources department is not on the top floor, the top floor must be occupied by either the research and development department or the sales department. We can eliminate option D because the sales department cannot be on the top floor. We can also eliminate option C because the research and development department cannot be on the floor below the human resources department. This leaves us with options A and B. We can eliminate option B because the research and development department cannot be on the floor below the administrative department. Therefore, the research and development department must be on either floor 3 or floor 4.
+
+Make sure all "statement" and "evidence" fields are concise and in a single line without any line breaks, bullet points, or formatting. Output the parsing results strictly in the JSON format shown in the previous example, do not output other additional information, explanation, or anything else.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+```json
+[
+    {{
+        "statement": "the human resources department and the sales department cannot be on the same floor",
+        "evidence": "The two floors of the human resources department and the sales department are not adjacent",
+        "Verification": "false"
+    }},
+    {{
+        "statement": "The planning department is on a floor that is below the administrative department and the human resources department.",
+        "evidence": "The finance department is on the floor above the planning department, and the administrative department is above the planning department but below the human resources department.",
+        "Verification": "true"
+    }},
+    {{
+        "statement": "The top floor must be occupied by either the research and development department or the sales department.",
+        "evidence": "The human resources department is not on the top floor",
+        "Verification": "true"
+    }},
+    {{
+        "statement": "We can eliminate option D",
+        "evidence": "The sales department cannot be on the top floor",
+        "Verification": "false"
+    }},
+    {{
+        "statement": "We can also eliminate option C",
+        "evidence": "The research and development department cannot be on the floor below the human resources department",
+        "Verification": "true"
+    }},
+    {{
+        "statement": "We can eliminate option B",
+        "evidence": "the research and development department cannot be on the floor below the administrative department",
+        "Verification": "true"
+    }},
+    {{
+        "statement": "the research and development department must be on either floor 3 or floor 4.",
+        "evidence": "This leaves us with options A and B. We can eliminate option B because the research and development department cannot be on the floor below the administrative department",
+        "Verification": "false"
+    }}
+]
+```
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
 Given a quertion, the conditions provided by the question, and response that aims at solveing the problem of the question, please parse the response. Now analyze the following:
 
 The question is:
@@ -271,8 +339,6 @@ The response to the question is:
 {cot}
 
 Make sure all "statement" and "evidence" fields are concise and in a single line without any line breaks, bullet points, or formatting. Output the parsing results strictly in the JSON format shown in the previous example, do not output other additional information, explanation, or anything else.<|eot_id|><|start_header_id|>assistant<|end_header_id|>'''
-
-
 
 
 def load_model(args):
