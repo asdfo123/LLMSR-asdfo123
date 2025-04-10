@@ -31,8 +31,6 @@ python process.py --task cp
 
 ### Customizing Test Data
 
-Customizing Test Data
-
 To evaluate on different test datasets:
 
 1. Modify only the test file path in the **FIRST** command (QP task)
