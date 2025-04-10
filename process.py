@@ -37,7 +37,7 @@ def extract_json(data):
 
 def extract_qp():
     try:
-        with open('./result-qp.json', 'r') as f:
+        with open('./result.json', 'r') as f:
             test_data = json.load(f)
             for idx, sample in enumerate(tqdm(test_data)):
                 result = sample['question_parsing']
@@ -57,12 +57,12 @@ def extract_qp():
     except Exception as e:
         print(f"Unexpected error: {e}")
 
-    with open('./result-qp.json', 'w') as f:
+    with open('./result.json', 'w') as f:
         json.dump(test_data, f, indent=4)
 
 def extract_cp():
     try:
-        with open('./result-cp.json', 'r') as f:
+        with open('./result.json', 'r') as f:
             test_data = json.load(f)
             for idx, sample in enumerate(tqdm(test_data)):
                 result = sample['cot_parsing']
