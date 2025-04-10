@@ -39,3 +39,9 @@ To evaluate on different test datasets:
     - Example change: `Public_Test_A.json` → `Public_Test_B.json`
 2. Keep all other parameters identical
 
+
+## Troubleshooting
+
+If you encounter any issues while running the script, please contact:
+📧 leeasdfo123@gmail.com
+
