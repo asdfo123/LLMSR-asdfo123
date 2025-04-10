@@ -6,7 +6,7 @@ Our approach leverages a few-shot ICL strategy with the pre-trained Llama3-8B-In
 
 ## Implementation Details
 
-- **Model**: We utilize the standard Llama3-8B-Instruct model without any fine-tuning
+- **Model**: We utilize the standard [meta-llama/Meta-Llama-3-8B-Instruct](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) model without any fine-tuning
 - **Method**: Few-shot in-context learning with optimized prompts
 - **Format**: Multi-turn conversation structure for improved reasoning
 
