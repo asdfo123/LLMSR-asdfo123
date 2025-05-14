@@ -2,7 +2,7 @@
 
 ## 🚀 Overview
 
-This repository contains our submission to the **LLMSR\@XLLM25** Shared Task on structured reasoning with LLMs.
+This repository contains our submission to the [**LLMSR\@XLLM25** Shared Task](https://xllms.github.io/LLMSR/) on structured reasoning with LLMs.
 Our approach employs **few-shot in-context learning** (ICL) with the untuned [`Meta-Llama-3-8B-Instruct`](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct), enhanced by:
 
 * Carefully selected demonstrations
